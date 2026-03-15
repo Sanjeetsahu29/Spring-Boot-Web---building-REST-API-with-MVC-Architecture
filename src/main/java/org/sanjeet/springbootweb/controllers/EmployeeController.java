@@ -3,6 +3,7 @@ package org.sanjeet.springbootweb.controllers;
 import org.sanjeet.springbootweb.dto.EmployeeDTO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
@@ -17,5 +18,11 @@ public class EmployeeController {
     @GetMapping("/employees/{employeeId}")
     public EmployeeDTO getEmployeeById(@PathVariable Long employeeId){
         return new EmployeeDTO(employeeId, "Sanjeet Sahu", "sanjeetsahus29@gmail.com", 28, LocalDate.of(2026, 2, 22), true);
+    }
+
+    @GetMapping("/employees")
+    public String getMessageWithQueryParameter(@RequestParam(required = false) Integer age,
+                                              @RequestParam(required = false) String sortBy){
+        return "Hard coded Query parameter are age: "+age+" and SortBy filter method: "+sortBy;
     }
 }
