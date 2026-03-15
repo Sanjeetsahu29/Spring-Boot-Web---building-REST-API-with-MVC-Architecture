@@ -7,6 +7,7 @@ public class EmployeeDTO {
     private String name;
     private String email;
     private Integer age;
+    private Boolean isActive;
 
     public EmployeeDTO() {
     }
