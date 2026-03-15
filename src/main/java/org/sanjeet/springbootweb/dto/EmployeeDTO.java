@@ -7,6 +7,19 @@ public class EmployeeDTO {
     private String name;
     private String email;
     private Integer age;
+
+    public EmployeeDTO() {
+    }
+
+    public EmployeeDTO(Long id, String name, String email, Integer age, LocalDate dateOfJoining) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.age = age;
+        this.dateOfJoining = dateOfJoining;
+    }
+
+
     private LocalDate dateOfJoining;
 
     public Long getId() {
