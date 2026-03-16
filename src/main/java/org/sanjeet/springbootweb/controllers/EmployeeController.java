@@ -27,6 +27,16 @@ public class EmployeeController {
     // Using POSTMAN we can make api request of different HTTP methods
     @PostMapping("/employees")
     public String createNewEmployee(){
-        return "Hello from post controller method";
+        return "Hello from Post controller method";
+    }
+
+    @PutMapping("/employees")
+    public String updateEmployee(){
+        return "Hello from the Put controller method";
+    }
+
+    @DeleteMapping("/employees")
+    public String deleteEmployee(){
+        return "Hello from the Delete controller method";
     }
 }
