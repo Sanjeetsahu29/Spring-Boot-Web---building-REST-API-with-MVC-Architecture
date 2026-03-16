@@ -1,10 +1,7 @@
 package org.sanjeet.springbootweb.controllers;
 
 import org.sanjeet.springbootweb.dto.EmployeeDTO;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
@@ -24,5 +21,10 @@ public class EmployeeController {
     public String getMessageWithQueryParameter(@RequestParam(required = false) Integer age,
                                               @RequestParam(required = false) String sortBy){
         return "Hard coded Query parameter are age: "+age+" and SortBy filter method: "+sortBy;
+    }
+
+    @PostMapping("/employees")
+    public String createNewEmployee(){
+        return "Hello from post controller method";
     }
 }
