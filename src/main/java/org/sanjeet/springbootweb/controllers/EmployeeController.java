@@ -26,8 +26,9 @@ public class EmployeeController {
     // api request from the browser url. We need a client that can mimic our frontend client
     // Using POSTMAN we can make api request of different HTTP methods
     @PostMapping("/employees")
-    public String createNewEmployee(){
-        return "Hello from Post controller method";
+    public EmployeeDTO createNewEmployee(@RequestBody EmployeeDTO inputEmployeeInfo){
+        inputEmployeeInfo.setId(100L);
+        return inputEmployeeInfo;
     }
 
     @PutMapping("/employees")
