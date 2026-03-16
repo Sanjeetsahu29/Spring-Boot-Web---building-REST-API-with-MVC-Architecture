@@ -22,7 +22,9 @@ public class EmployeeController {
                                               @RequestParam(required = false) String sortBy){
         return "Hard coded Query parameter are age: "+age+" and SortBy filter method: "+sortBy;
     }
-
+    // Since this is the controller method of type post, so you can't be able to hit this
+    // api request from the browser url. We need a client that can mimic our frontend client
+    // Using POSTMAN we can make api request of different HTTP methods
     @PostMapping("/employees")
     public String createNewEmployee(){
         return "Hello from post controller method";
