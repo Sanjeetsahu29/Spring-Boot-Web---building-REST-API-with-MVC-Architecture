@@ -1,10 +1,12 @@
 package org.sanjeet.springbootweb.controllers;
 
 import org.sanjeet.springbootweb.dto.EmployeeDTO;
+import org.sanjeet.springbootweb.entities.EmployeeEntities;
 import org.sanjeet.springbootweb.repositories.EmployeeRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("/employees")
@@ -20,22 +22,27 @@ public class EmployeeController {
 //    }
 
     @GetMapping("/{employeeId}")
-    public EmployeeDTO getEmployeeById(@PathVariable Long employeeId){
-        return new EmployeeDTO(employeeId, "Sanjeet Sahu", "sanjeetsahus29@gmail.com", 28, LocalDate.of(2026, 2, 22), true);
+    public EmployeeEntities getEmployeeById(@PathVariable Long employeeId){
+        return employeeRepository.findById(employeeId).orElse(null);
     }
 
-    @GetMapping("/")
-    public String getMessageWithQueryParameter(@RequestParam(required = false) Integer age,
-                                              @RequestParam(required = false) String sortBy){
-        return "Hard coded Query parameter are age: "+age+" and SortBy filter method: "+sortBy;
+    @GetMapping("/get-all")
+    public List<EmployeeEntities> getAllEmployees(@RequestParam(required = false, name="inputAge") Integer age,
+                                                  @RequestParam(required = false) String sortBy){
+        return employeeRepository.findAll();
     }
     // Since this is the controller method of type post, so you can't be able to hit this
     // api request from the browser url. We need a client that can mimic our frontend client
     // Using POSTMAN we can make api request of different HTTP methods
-    @PostMapping("/")
-    public EmployeeDTO createNewEmployee(@RequestBody EmployeeDTO inputEmployeeInfo){
-        inputEmployeeInfo.setId(100L);
-        return inputEmployeeInfo;
+    @PostMapping("/create")
+    public EmployeeEntities createNewEmployee(@RequestBody EmployeeEntities inputEmployeeInfo){
+        return employeeRepository.save(inputEmployeeInfo);
+    }
+
+    @GetMapping()
+    public String getMessageWithQueryParameter(@RequestParam(required = false) Integer age,
+                                              @RequestParam(required = false) String sortBy){
+        return "Hard coded Query parameter are age: "+age+" and SortBy filter method: "+sortBy;
     }
 
     @PutMapping("/")
