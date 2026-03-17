@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Table(name="employees") // if this table annotation is missing, then spring automatically named is table as name of java class in small case
 public class EmployeeEntities {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String email;
