@@ -1,10 +1,14 @@
 package org.sanjeet.springbootweb.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
+@Getter
+@Setter
 @Table(name="employees") // if this table annotation is missing, then spring automatically named is table as name of java class in small case
 public class EmployeeEntities {
     @Id
