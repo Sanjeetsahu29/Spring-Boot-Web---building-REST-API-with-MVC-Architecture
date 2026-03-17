@@ -1,12 +1,18 @@
 package org.sanjeet.springbootweb.controllers;
 
 import org.sanjeet.springbootweb.dto.EmployeeDTO;
+import org.sanjeet.springbootweb.repositories.EmployeeRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
 @RestController
 public class EmployeeController {
+    private final EmployeeRepository employeeRepository;
+    public EmployeeController(EmployeeRepository employeeRepository){
+        this.employeeRepository = employeeRepository;
+    }
+
     @GetMapping("/employees/*")
     public String handleRandomURL(){
         return "Incorrect URL, please go back and hit correct URL";
