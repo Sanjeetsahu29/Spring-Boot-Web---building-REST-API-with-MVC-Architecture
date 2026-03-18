@@ -5,7 +5,6 @@ import org.sanjeet.springbootweb.entities.EmployeeEntities;
 import org.sanjeet.springbootweb.services.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -38,7 +37,7 @@ public class EmployeeController {
     // api request from the browser url. We need a client that can mimic our frontend client
     // Using POSTMAN we can make api request of different HTTP methods
     @PostMapping("/create")
-    public EmployeeEntities createNewEmployee(@RequestBody EmployeeEntities inputEmployeeInfo){
+    public EmployeeDTO createNewEmployee(@RequestBody EmployeeDTO inputEmployeeInfo){
         return employeeService.createEmployee(inputEmployeeInfo);
     }
 

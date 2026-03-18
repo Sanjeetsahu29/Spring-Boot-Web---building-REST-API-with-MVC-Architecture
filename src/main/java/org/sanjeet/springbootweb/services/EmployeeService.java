@@ -40,7 +40,9 @@ public class EmployeeService {
                 .collect(Collectors.toList());
     }
 
-    public EmployeeEntities createEmployee(EmployeeEntities employeeEntity){
-        return employeeRepository.save(employeeEntity);
+    public EmployeeDTO createEmployee(EmployeeDTO inputEmployee){
+        EmployeeEntities toSaveEntity = mapper.map(inputEmployee, EmployeeEntities.class);
+        EmployeeEntities savedEntity = employeeRepository.save(toSaveEntity);
+        return mapper.map(savedEntity, EmployeeDTO.class);
     }
 }
