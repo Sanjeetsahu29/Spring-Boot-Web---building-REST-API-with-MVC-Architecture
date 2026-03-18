@@ -7,6 +7,7 @@ import org.sanjeet.springbootweb.repositories.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {
@@ -31,8 +32,12 @@ public class EmployeeService {
         return mapper.map(employeeEntity, EmployeeDTO.class);
     }
 
-    public List<EmployeeEntities> getAllEmployee() {
-        return employeeRepository.findAll();
+    public List<EmployeeDTO> getAllEmployee() {
+        List<EmployeeEntities> employeeEntities =  employeeRepository.findAll();
+        return employeeEntities
+                .stream()
+                .map((employeeEntity) -> mapper.map(employeeEntity, EmployeeDTO.class))
+                .collect(Collectors.toList());
     }
 
     public EmployeeEntities createEmployee(EmployeeEntities employeeEntity){

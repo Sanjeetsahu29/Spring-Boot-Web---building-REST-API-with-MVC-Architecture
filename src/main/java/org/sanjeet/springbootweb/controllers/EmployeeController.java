@@ -30,7 +30,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/get-all")
-    public List<EmployeeEntities> getAllEmployees(@RequestParam(required = false, name="inputAge") Integer age,
+    public List<EmployeeDTO> getAllEmployees(@RequestParam(required = false, name="inputAge") Integer age,
                                                   @RequestParam(required = false) String sortBy){
         return employeeService.getAllEmployee();
     }
