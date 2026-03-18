@@ -12,8 +12,10 @@ import java.util.List;
 public class EmployeeService {
     // this class will talk to talk the database
     private final EmployeeRepository employeeRepository;
-    public EmployeeService(EmployeeRepository employeeRepository) {
+    private final ModelMapper mapper;
+    public EmployeeService(EmployeeRepository employeeRepository, ModelMapper mapper) {
         this.employeeRepository = employeeRepository;
+        this.mapper = mapper;
     }
 
     // Manual mapping from EmployeeEntity object to EmployeeDTO is error-prone and a lot of code repeats
@@ -25,7 +27,7 @@ public class EmployeeService {
 
     public EmployeeDTO getEmployeeById(Long id){
         EmployeeEntities employeeEntity = employeeRepository.findById(id).orElse(null);
-        ModelMapper mapper = new ModelMapper();
+//        ModelMapper mapper = new ModelMapper();
         return mapper.map(employeeEntity, EmployeeDTO.class);
     }
 
