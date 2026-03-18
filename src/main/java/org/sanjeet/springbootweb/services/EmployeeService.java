@@ -1,5 +1,7 @@
 package org.sanjeet.springbootweb.services;
 
+import org.modelmapper.ModelMapper;
+import org.sanjeet.springbootweb.dto.EmployeeDTO;
 import org.sanjeet.springbootweb.entities.EmployeeEntities;
 import org.sanjeet.springbootweb.repositories.EmployeeRepository;
 import org.springframework.stereotype.Service;
@@ -14,8 +16,17 @@ public class EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
-    public EmployeeEntities getEmployeeById(Long id){
-        return employeeRepository.findById(id).orElse(null);
+    // Manual mapping from EmployeeEntity object to EmployeeDTO is error-prone and a lot of code repeats
+    // Instead of manual mapping we will use external dependency to handle this manual mapping from one object type to another object type
+//    public EmployeeDTO getEmployeeById(Long id){
+//        EmployeeEntities employeeEntity = employeeRepository.findById(id).orElse(null);
+//        return new EmployeeDTO(employeeEntity.getId(), employeeEntity.getName(), employeeEntity.getEmail(), employeeEntity.getAge(), employeeEntity.getDateOfJoining(), employeeEntity.getIsActive());
+//    }
+
+    public EmployeeDTO getEmployeeById(Long id){
+        EmployeeEntities employeeEntity = employeeRepository.findById(id).orElse(null);
+        ModelMapper mapper = new ModelMapper();
+        return mapper.map(employeeEntity, EmployeeDTO.class);
     }
 
     public List<EmployeeEntities> getAllEmployee() {
