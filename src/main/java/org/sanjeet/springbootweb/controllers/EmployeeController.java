@@ -54,8 +54,8 @@ public class EmployeeController {
         return employeeService.updateEmployeeById(employeeId, inputEmployee);
     }
 
-    @DeleteMapping("/")
-    public String deleteEmployee(){
-        return "Hello from the Delete controller method";
+    @DeleteMapping("/{employeeId}")
+    public void deleteEmployeeById(@PathVariable Long employeeId){
+        employeeService.deleteEmployeeById(employeeId);
     }
 }

@@ -51,4 +51,12 @@ public class EmployeeService {
         EmployeeEntities savedEmployeeEntity = employeeRepository.save(employeeEntity);
         return mapper.map(savedEmployeeEntity, EmployeeDTO.class);
     }
+
+    public void deleteEmployeeById(Long id){
+        try {
+            employeeRepository.deleteById(id);
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
