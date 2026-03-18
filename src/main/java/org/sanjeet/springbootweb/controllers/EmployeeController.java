@@ -47,9 +47,11 @@ public class EmployeeController {
         return "Hard coded Query parameter are age: "+age+" and SortBy filter method: "+sortBy;
     }
 
-    @PutMapping("/")
-    public String updateEmployee(){
-        return "Hello from the Put controller method";
+    @PutMapping("/{employeeId}")
+    public EmployeeDTO updateEmployeeById(
+            @PathVariable Long employeeId,
+            @RequestBody EmployeeDTO inputEmployee){
+        return employeeService.updateEmployeeById(employeeId, inputEmployee);
     }
 
     @DeleteMapping("/")
