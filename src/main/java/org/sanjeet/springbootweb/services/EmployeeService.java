@@ -5,8 +5,11 @@ import org.sanjeet.springbootweb.dto.EmployeeDTO;
 import org.sanjeet.springbootweb.entities.EmployeeEntities;
 import org.sanjeet.springbootweb.repositories.EmployeeRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,5 +69,19 @@ public class EmployeeService {
         } catch (RuntimeException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public EmployeeDTO updatePartialEmployee(Long employeeId, Map<String, Object> updates){
+        boolean exist = isEmployeeExistsById(employeeId);
+        if(!exist) return null;
+        EmployeeEntities employeeEntity = employeeRepository.findById(employeeId).get();
+        updates.forEach((field, value) ->{
+            Field fieldToBeUpdated = ReflectionUtils.findField(EmployeeEntities.class, field);
+            if(fieldToBeUpdated!=null){
+                fieldToBeUpdated.setAccessible(true);
+                ReflectionUtils.setField(fieldToBeUpdated, employeeEntity, value);
+            }
+        });
+        return  mapper.map(employeeRepository.save(employeeEntity), EmployeeDTO.class);
     }
 }
