@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/employees")
@@ -27,9 +28,10 @@ public class EmployeeController {
 
     @GetMapping("/{employeeId}")
     public ResponseEntity<EmployeeDTO> getEmployeeById(@PathVariable Long employeeId){
-        EmployeeDTO employeeDTO = employeeService.getEmployeeById(employeeId);
-        if(employeeDTO == null) return ResponseEntity.notFound().build();
-        return ResponseEntity.ok(employeeDTO);
+        Optional<EmployeeDTO> employeeDTO = employeeService.getEmployeeById(employeeId);
+        return employeeDTO
+                .map(employeeDTO1 -> ResponseEntity.ok(employeeDTO1))
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/get-all")
