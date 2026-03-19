@@ -3,6 +3,8 @@ package org.sanjeet.springbootweb.controllers;
 import org.sanjeet.springbootweb.dto.EmployeeDTO;
 import org.sanjeet.springbootweb.entities.EmployeeEntities;
 import org.sanjeet.springbootweb.services.EmployeeService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,16 +37,17 @@ public class EmployeeController {
     }
 
     @GetMapping("/get-all")
-    public List<EmployeeDTO> getAllEmployees(@RequestParam(required = false, name="inputAge") Integer age,
+    public ResponseEntity<List<EmployeeDTO> > getAllEmployees(@RequestParam(required = false, name="inputAge") Integer age,
                                                   @RequestParam(required = false) String sortBy){
-        return employeeService.getAllEmployee();
+        return ResponseEntity.ok(employeeService.getAllEmployee());
     }
     // Since this is the controller method of type post, so you can't be able to hit this
     // api request from the browser url. We need a client that can mimic our frontend client
     // Using POSTMAN we can make api request of different HTTP methods
     @PostMapping("/create")
-    public EmployeeDTO createNewEmployee(@RequestBody EmployeeDTO inputEmployeeInfo){
-        return employeeService.createEmployee(inputEmployeeInfo);
+    public ResponseEntity<EmployeeDTO> createNewEmployee(@RequestBody EmployeeDTO inputEmployeeInfo){
+         EmployeeDTO savedEmployee = employeeService.createEmployee(inputEmployeeInfo);
+         return new ResponseEntity<>(savedEmployee, HttpStatus.CREATED);
     }
 
     @GetMapping()
@@ -54,21 +57,25 @@ public class EmployeeController {
     }
 
     @PutMapping("/{employeeId}")
-    public EmployeeDTO updateEmployeeById(
+    public ResponseEntity<EmployeeDTO> updateEmployeeById(
             @PathVariable Long employeeId,
             @RequestBody EmployeeDTO inputEmployee){
-        return employeeService.updateEmployeeById(employeeId, inputEmployee);
+        return ResponseEntity.ok(employeeService.updateEmployeeById(employeeId, inputEmployee));
     }
 
     @DeleteMapping("/{employeeId}")
-    public boolean deleteEmployeeById(@PathVariable Long employeeId){
-        return employeeService.deleteEmployeeById(employeeId);
+    public ResponseEntity<Boolean> deleteEmployeeById(@PathVariable Long employeeId){
+        boolean gotDeleted =  employeeService.deleteEmployeeById(employeeId);
+        if(gotDeleted) return ResponseEntity.ok(true);
+        return ResponseEntity.notFound().build();
     }
 
     @PatchMapping("/{employeeId}")
-    public EmployeeDTO updatePartialEmployeeById(@RequestBody Map<String, Object> updates,
+    public ResponseEntity<EmployeeDTO> updatePartialEmployeeById(@RequestBody Map<String, Object> updates,
                                                  @PathVariable Long employeeId
                                                  ){
-        return employeeService.updatePartialEmployee(employeeId, updates);
+        EmployeeDTO employeeDTO =  employeeService.updatePartialEmployee(employeeId, updates);
+        if(employeeDTO == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(employeeDTO);
     }
 }
