@@ -52,9 +52,13 @@ public class EmployeeService {
         return mapper.map(savedEmployeeEntity, EmployeeDTO.class);
     }
 
+    public boolean isEmployeeExistsById(Long employeeId){
+        return employeeRepository.existsById(employeeId);
+    }
+
     public boolean deleteEmployeeById(Long id){
         try {
-            boolean exist = employeeRepository.existsById(id);
+            boolean exist = isEmployeeExistsById(id);
             if(!exist) return false;
             employeeRepository.deleteById(id);
             return true;
