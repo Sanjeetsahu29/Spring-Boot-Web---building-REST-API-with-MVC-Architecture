@@ -37,6 +37,11 @@ public class EmployeeDTO {
     @PastOrPresent(message = "DateOfJoining field in employee cannot be in the future")
     private LocalDate dateOfJoining;
 
+    @Digits(integer = 1, fraction = 2, message = "Rating of the employee is in format X.YZ")
+    @Min(value = 1, message = "Min rating of the employee can be 1")
+    @Max(value = 5, message = "Max rating of the employee can be 5")
+    private Double rating;
+
     @JsonProperty("isActive")
     private Boolean isActive;
 
