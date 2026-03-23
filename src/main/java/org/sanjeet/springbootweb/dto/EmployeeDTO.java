@@ -33,6 +33,8 @@ public class EmployeeDTO {
     @NotNull(message = "Salary of employee should not be null")
     @Positive(message = "Salary of employee should be positive")
     private Integer salary;
+
+    @PastOrPresent(message = "DateOfJoining field in employee cannot be in the future")
     private LocalDate dateOfJoining;
 
     @JsonProperty("isActive")
