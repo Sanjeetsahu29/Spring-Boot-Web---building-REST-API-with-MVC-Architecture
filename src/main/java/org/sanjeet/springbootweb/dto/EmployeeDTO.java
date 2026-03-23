@@ -27,6 +27,9 @@ public class EmployeeDTO {
     @Min(value = 18, message = "Age of employee must be 18+")
     private Integer age;
 
+    @Pattern(regexp = "^(ADMIN|USER)$", message = "Role of the employee can be either admin or user")
+    private String role;
+
     private LocalDate dateOfJoining;
 
     @JsonProperty("isActive")
