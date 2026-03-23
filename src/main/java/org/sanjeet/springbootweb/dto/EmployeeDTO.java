@@ -30,6 +30,9 @@ public class EmployeeDTO {
     @Pattern(regexp = "^(ADMIN|USER)$", message = "Role of the employee can be either admin or user")
     private String role;
 
+    @NotNull(message = "Salary of employee should not be null")
+    @Positive(message = "Salary of employee should be positive")
+    private Integer salary;
     private LocalDate dateOfJoining;
 
     @JsonProperty("isActive")
