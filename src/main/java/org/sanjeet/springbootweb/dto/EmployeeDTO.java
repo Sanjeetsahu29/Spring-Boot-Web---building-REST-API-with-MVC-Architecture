@@ -15,7 +15,7 @@ import java.time.LocalDate;
 
 public class EmployeeDTO {
     private Long id;
-    @NotNull
+    @NotNull(message = "Required field in the employee: name")
     private String name;
     private String email;
     private Integer age;
