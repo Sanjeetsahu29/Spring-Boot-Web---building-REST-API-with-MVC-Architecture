@@ -70,6 +70,11 @@ public class EmployeeController {
         if(gotDeleted) return ResponseEntity.ok(true);
         return ResponseEntity.notFound().build();
     }
+    @DeleteMapping()
+    public ResponseEntity<Boolean> deleteAllEmployee(){
+        employeeService.deleteAllEmployee();
+        return ResponseEntity.ok(true);
+    }
 
     @PatchMapping("/{employeeId}")
     public ResponseEntity<EmployeeDTO> updatePartialEmployeeById(@RequestBody Map<String, Object> updates,

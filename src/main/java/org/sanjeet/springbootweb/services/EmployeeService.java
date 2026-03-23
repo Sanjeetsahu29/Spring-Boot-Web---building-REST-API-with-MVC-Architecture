@@ -71,6 +71,9 @@ public class EmployeeService {
             throw new RuntimeException(e);
         }
     }
+    public void deleteAllEmployee(){
+        employeeRepository.deleteAll();
+    }
 
     public EmployeeDTO updatePartialEmployee(Long employeeId, Map<String, Object> updates){
         boolean exist = isEmployeeExistsById(employeeId);
