@@ -48,6 +48,7 @@ public class EmployeeDTO {
     private Double safetyRating;
 
     @JsonProperty("isActive")
+    @AssertTrue
     private Boolean isActive;
 
 }
