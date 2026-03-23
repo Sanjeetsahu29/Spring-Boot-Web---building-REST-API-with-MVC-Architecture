@@ -1,6 +1,7 @@
 package org.sanjeet.springbootweb.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 
 public class EmployeeDTO {
     private Long id;
+    @NotNull
     private String name;
     private String email;
     private Integer age;

@@ -1,5 +1,6 @@
 package org.sanjeet.springbootweb.controllers;
 
+import jakarta.validation.Valid;
 import org.sanjeet.springbootweb.dto.EmployeeDTO;
 import org.sanjeet.springbootweb.entities.EmployeeEntities;
 import org.sanjeet.springbootweb.services.EmployeeService;
@@ -45,7 +46,7 @@ public class EmployeeController {
     // api request from the browser url. We need a client that can mimic our frontend client
     // Using POSTMAN we can make api request of different HTTP methods
     @PostMapping("/create")
-    public ResponseEntity<EmployeeDTO> createNewEmployee(@RequestBody EmployeeDTO inputEmployeeInfo){
+    public ResponseEntity<EmployeeDTO> createNewEmployee(@RequestBody @Valid EmployeeDTO inputEmployeeInfo){
          EmployeeDTO savedEmployee = employeeService.createEmployee(inputEmployeeInfo);
          return new ResponseEntity<>(savedEmployee, HttpStatus.CREATED);
     }
