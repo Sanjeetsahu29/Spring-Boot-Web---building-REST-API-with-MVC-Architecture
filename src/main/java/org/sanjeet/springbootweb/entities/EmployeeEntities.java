@@ -18,7 +18,8 @@ public class EmployeeEntities {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String firstName;
+    private String lastName;
     private String email;
     private Integer age;
     private LocalDate dateOfJoining;
