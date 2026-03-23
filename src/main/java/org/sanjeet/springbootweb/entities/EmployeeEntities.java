@@ -24,6 +24,7 @@ public class EmployeeEntities {
     private String role;
     private Integer salary;
     private Double rating;
+    private Double safetyRating;
     private LocalDate dateOfJoining;
     private Boolean isActive;
 }

@@ -42,6 +42,11 @@ public class EmployeeDTO {
     @Max(value = 5, message = "Max rating of the employee can be 5")
     private Double rating;
 
+    @DecimalMin(value = "1.0", message = "minimum safety rating that a employee can earn is 1.0")
+    @DecimalMax(value = "9.9", message = "maximum safety rating that a employee can earn is 9.9")
+
+    private Double safetyRating;
+
     @JsonProperty("isActive")
     private Boolean isActive;
 
