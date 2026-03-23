@@ -22,7 +22,7 @@ public class EmployeeDTO {
     @Size(min = 3, max = 50, message = "Number of characters in name should be in the range [3,50]")
     private String name;
 
-    @Email
+    @Email(message = "Email should be a valid email")
     private String email;
 
     private Integer age;
