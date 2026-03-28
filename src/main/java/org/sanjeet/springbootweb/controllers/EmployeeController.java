@@ -38,10 +38,7 @@ public class EmployeeController {
                 .map(employeeDTO1 -> ResponseEntity.ok(employeeDTO1))
                 .orElseThrow(()-> new NoSuchElementException("Employee not found"));
     }
-    @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<String> handleEmployeeNotFound(NoSuchElementException exception){
-        return new ResponseEntity<>("Resource not found", HttpStatus.NOT_FOUND);
-    }
+
 
     @GetMapping("/get-all")
     public ResponseEntity<List<EmployeeDTO> > getAllEmployees(@RequestParam(required = false, name="inputAge") Integer age,
