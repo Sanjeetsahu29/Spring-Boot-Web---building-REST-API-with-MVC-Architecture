@@ -10,7 +10,8 @@ import java.util.NoSuchElementException;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<String> handleResourceNotFound(NoSuchElementException exception){
-        return new ResponseEntity<>("Resource not found", HttpStatus.NOT_FOUND);
+    public ResponseEntity<ApiError> handleResourceNotFound(NoSuchElementException exception){
+        ApiError apiError = ApiError.builder().status(HttpStatus.NOT_FOUND).message("Resource not found").build();
+        return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
     }
 }
