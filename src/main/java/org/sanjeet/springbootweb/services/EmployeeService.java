@@ -74,8 +74,9 @@ public class EmployeeService {
     }
 
     public EmployeeDTO updatePartialEmployee(Long employeeId, Map<String, Object> updates){
-        boolean exist = isEmployeeExistsById(employeeId);
-        if(!exist) return null;
+        boolean exists = isEmployeeExistsById(employeeId);
+        if(!exists) throw new ResourceNotFoundException("Can't partially update the employee because employee doesn't exist with id "+employeeId);
+
         EmployeeEntities employeeEntity = employeeRepository.findById(employeeId).get();
         updates.forEach((field, value) ->{
             Field fieldToBeUpdated = ReflectionUtils.findField(EmployeeEntities.class, field);
