@@ -64,15 +64,10 @@ public class EmployeeService {
     }
 
     public boolean deleteEmployeeById(Long id){
-        try {
-            boolean exist = isEmployeeExistsById(id);
-            if(!exist) return false;
-            employeeRepository.deleteById(id);
-            return true;
-
-        } catch (RuntimeException e) {
-            throw new RuntimeException(e);
-        }
+        boolean exists = isEmployeeExistsById(id);
+        if(!exists) throw new ResourceNotFoundException("Can't delete the employee because employee doesn't exist with id "+id);
+        employeeRepository.deleteById(id);
+        return true;
     }
     public void deleteAllEmployee(){
         employeeRepository.deleteAll();
