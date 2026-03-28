@@ -1,6 +1,7 @@
 package org.sanjeet.springbootweb.controllers;
 
 import jakarta.validation.Valid;
+import org.apache.coyote.Response;
 import org.sanjeet.springbootweb.dto.EmployeeDTO;
 import org.sanjeet.springbootweb.entities.EmployeeEntities;
 import org.sanjeet.springbootweb.services.EmployeeService;
@@ -38,8 +39,8 @@ public class EmployeeController {
                 .orElseThrow(()-> new NoSuchElementException("Employee not found"));
     }
     @ExceptionHandler(NoSuchElementException.class)
-    public String handleEmployeeNotFound(NoSuchElementException exception){
-        return "Employee was not found";
+    public ResponseEntity<String> handleEmployeeNotFound(NoSuchElementException exception){
+        return new ResponseEntity<>("Resource not found", HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/get-all")
