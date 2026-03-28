@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.apache.coyote.Response;
 import org.sanjeet.springbootweb.dto.EmployeeDTO;
 import org.sanjeet.springbootweb.entities.EmployeeEntities;
+import org.sanjeet.springbootweb.exceptions.ResourceNotFoundException;
 import org.sanjeet.springbootweb.services.EmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -36,7 +37,7 @@ public class EmployeeController {
         Optional<EmployeeDTO> employeeDTO = employeeService.getEmployeeById(employeeId);
         return employeeDTO
                 .map(employeeDTO1 -> ResponseEntity.ok(employeeDTO1))
-                .orElseThrow(()-> new NoSuchElementException("Employee not found"));
+                .orElseThrow(()-> new ResourceNotFoundException("Employee not found for ID: "+employeeId));
     }
 
 

@@ -3,6 +3,7 @@ package org.sanjeet.springbootweb.services;
 import org.modelmapper.ModelMapper;
 import org.sanjeet.springbootweb.dto.EmployeeDTO;
 import org.sanjeet.springbootweb.entities.EmployeeEntities;
+import org.sanjeet.springbootweb.exceptions.ResourceNotFoundException;
 import org.sanjeet.springbootweb.repositories.EmployeeRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
@@ -50,6 +51,8 @@ public class EmployeeService {
         return mapper.map(savedEntity, EmployeeDTO.class);
     }
     public EmployeeDTO updateEmployeeById( Long id, EmployeeDTO inputEmployee){
+        boolean exists = isEmployeeExistsById(id);
+        if(!exists) throw new ResourceNotFoundException("Can't update the employee because employee doesn't exist with id "+id);
         EmployeeEntities employeeEntity = mapper.map(inputEmployee, EmployeeEntities.class);
         employeeEntity.setId(id);
         EmployeeEntities savedEmployeeEntity = employeeRepository.save(employeeEntity);
